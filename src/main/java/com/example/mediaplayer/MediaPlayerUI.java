@@ -412,7 +412,15 @@ public class MediaPlayerUI extends Application {
                 System.out.println(duration.toSeconds());
                 timeSlider.setMax(duration.toSeconds());
                 timeSlider.setValue(newValue.toSeconds());
-
+                String staticDuration = formattedDuration(duration);
+                staticDurationLabel.setText(staticDuration);
+                Timeline labelUpdateTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                    Duration currentTime = mediaPlayer.getCurrentTime();
+                    String formattedDuration = formattedDuration(currentTime);
+                    durationLabel.setText(formattedDuration);
+                }));
+                labelUpdateTimeline.setCycleCount(Timeline.INDEFINITE);
+                labelUpdateTimeline.play();
             }
         });
 
@@ -429,7 +437,8 @@ public class MediaPlayerUI extends Application {
                 double newVolume = (mouseX / totalWidth) * 100.0;
 
                 mediaPlayer.seek(new Duration(newVolume * 1000));
-                handleVolumeChange(newVolume);
+                double newPosition = (mouseX / totalWidth) * timeSlider.getMax();
+                mediaPlayer.seek(new Duration(newPosition * 1000));
             }
         });
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
