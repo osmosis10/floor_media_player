@@ -29,6 +29,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 
 public class MediaPlayerUI extends Application {
@@ -112,32 +113,32 @@ public class MediaPlayerUI extends Application {
             previousButton = (Button) loader.getNamespace().get("previousButton");
             nextButton = (Button) loader.getNamespace().get("nextButton");
 
-            Image play_Image = new Image(new File("src/images/player_play.png").toURI().toString());
+            Image play_Image = new Image(getClass().getResource("/com/example/mediaplayer/player_play.png").toString());
             ImageView playView = new ImageView(play_Image);
             playView.setFitHeight(IV_SIZE);
             playView.setFitWidth(IV_SIZE);
 
-            Image pause_Image = new Image(new File("src/images/player_pause.png").toURI().toString());
+            Image pause_Image = new Image(getClass().getResource("/com/example/mediaplayer/player_pause.png").toString());
             ImageView pauseView = new ImageView(pause_Image);
             pauseView.setFitHeight(IV_SIZE);
             pauseView.setFitWidth(IV_SIZE);
 
-            Image restart_Image = new Image(new File("src/images/player_restart.png").toURI().toString());
+            Image restart_Image = new Image(getClass().getResource("/com/example/mediaplayer/player_restart.png").toString());
             ImageView restartView = new ImageView(restart_Image);
             restartView.setFitHeight(IV_SIZE);
             restartView.setFitWidth(IV_SIZE);
 
-            Image nextImage = new Image(new File("src/images/player_skip.png").toURI().toString());
+            Image nextImage = new Image(getClass().getResource("/com/example/mediaplayer/player_skip.png").toString());
             ImageView nextView = new ImageView(nextImage);
             nextView.setFitHeight(IV_SIZE);
             nextView.setFitWidth(IV_SIZE);
 
-            Image prevImage = new Image(new File("src/images/player_previous.png").toURI().toString());
+            Image prevImage = new Image(getClass().getResource("/com/example/mediaplayer/player_previous.png").toString());
             ImageView previousView = new ImageView(prevImage);
             previousView.setFitHeight(IV_SIZE);
             previousView.setFitWidth(IV_SIZE);
 
-            Image floorImage = new Image(new File("src/images/floor.png").toURI().toString());
+            Image floorImage = new Image(getClass().getResource("/com/example/mediaplayer/floor.png").toString());
             ImageView floorView = new ImageView(floorImage);
 
 
@@ -553,10 +554,21 @@ public class MediaPlayerUI extends Application {
 
 
     public void visualizer() {
-        visualize_video = new Media(new File("src/resources/visualizations.mp4").toURI().toString());
-        mpVideo = new MediaPlayer(visualize_video);
-        mpVideo.setMute(true);
-        mview.setMediaPlayer(mpVideo);
+        String resourcePath = "/com/example/mediaplayer/visualizations.mp4";
+        URL resourceUrl = getClass().getResource(resourcePath);
+
+        if (resourceUrl != null) {
+            visualize_video = new Media(resourceUrl.toString());
+            mpVideo = new MediaPlayer(visualize_video);
+            mpVideo.setMute(true);
+            mview.setMediaPlayer(mpVideo);
+        } else {
+            System.err.println("Resource not found: " + resourcePath);
+        }
+        //visualize_video = new Media(new File("resources/visualizations.mp4").toURI().toString());
+        //mpVideo = new MediaPlayer(visualize_video);
+        //mpVideo.setMute(true);
+        //mview.setMediaPlayer(mpVideo);
     }
     public void closePlayer(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
