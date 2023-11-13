@@ -22,6 +22,7 @@ Before installing make sure you download maven:
   -Add the path to 'bin' to your systems PATH  
   -Use mv -v to see if maven is on your system  
 
+## (Help Video in floor_media_player\src)
 
 ### Downloading the Project  
 
@@ -32,9 +33,12 @@ git clone https://github.com/osmosis10/floor_media_player.git
 ### Running the Project  
 
 cd /path/to/project/location  
-mvn javafx:run  
+mvn javafx:run 
 
 ## How to use  
+DEMO
+https://github.com/osmosis10/floor_media_player/assets/104648610/49f83c6b-0065-402f-8082-58f4a04fd3ca
+
 
 ### Uploading Songs  
   - Click File => Upload    
